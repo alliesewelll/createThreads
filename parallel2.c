@@ -5,6 +5,7 @@
 #define THREAD_NO 10
 
 int sum = 0;
+pthread_mutex_t lock;
 
 void *worker(void *arg) {
     int *arr = (int *)arg;
