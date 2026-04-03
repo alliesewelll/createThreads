@@ -1,0 +1,25 @@
+CSE 2431 Lab 3 Report
+Allie Sewell
+Sewell.125
+
+Experiment 1: 
+
+In this experiment, I created 10 threads, where each thread was responsible for summing 100,000 integers from its assigned array. All threads updated a shared global variable sum without any synchronization.
+
+After compiling and running the program multiple times, the results were inconsistent and did not always match the result of the sequential program.
+
+This occurred due to a race condition, where multiple threads attempted to update the shared variable sum at the same time. Since these updates are not atomic, some increments were lost, leading to incorrect totals.
+
+Experiment 2: 
+
+In this experiment, I introduced a mutex lock to synchronize access to the shared variable sum. Each thread locked the mutex before updating sum and unlocked it immediately after.
+
+After implementing synchronization, the program consistently produced the correct result, which matched the sequential version each time.
+
+However, performance was reduced compared to Experiment 1 because the lock was acquired and released for every addition operation. This created significant overhead due to frequent locking and unlocking.
+
+Experiment 3:
+
+In this experiment, I modified the program so that each thread first computed a local sum for its portion of the array. After completing, each thread acquired the lock once to add its local sum to the global sum.
+
+This approach significantly reduced the number of lock operations. The program still produced the correct and consistent result, while also improving performance compared to Experiment 2.

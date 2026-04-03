@@ -9,12 +9,15 @@ pthread_mutex_t lock;
 
 void *worker(void *arg) {
     int *arr = (int *)arg;
+    int local_sum = 0;
 
     for(int i = 0; i < ARRAY_SIZE/THREAD_NO; i++){
-        pthread_mutex_lock(&lock);
-        sum += arr[i];
-        pthread_mutex_unlock(&lock);
+        local_sum += arr[i];
     }
+
+    pthread_mutex_lock(&lock);
+    sum += local_sum;
+    pthread_mutex_unlock(&lock);
 
     return NULL;
 }
